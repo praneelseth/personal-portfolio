@@ -2,6 +2,7 @@ import * as functions from "firebase-functions";
 import * as express from "express";
 import * as cors from "cors";
 import * as admin from "firebase-admin";
+import { Request, Response } from "express";
 
 // Initialize firebase-admin once for both local and deployed environments
 if (!admin.apps.length) {
@@ -14,7 +15,7 @@ const api = express();
 api.use(cors());
 
 // GET /projects - returns up to 8 ordered projects
-api.get("/projects", async (_req, res) => {
+api.get("/projects", async (_req: Request, res: Response) => {
   try {
     const snap = await db
       .collection("projects")
@@ -30,7 +31,7 @@ api.get("/projects", async (_req, res) => {
 });
 
 // GET /experiences - returns up to 3 ordered experiences
-api.get("/experiences", async (_req, res) => {
+api.get("/experiences", async (_req: Request, res: Response) => {
   try {
     const snap = await db
       .collection("experiences")
@@ -46,7 +47,7 @@ api.get("/experiences", async (_req, res) => {
 });
 
 // GET /achievements - returns up to 8 ordered achievements
-api.get("/achievements", async (_req, res) => {
+api.get("/achievements", async (_req: Request, res: Response) => {
   try {
     const snap = await db
       .collection("achievements")
@@ -62,7 +63,7 @@ api.get("/achievements", async (_req, res) => {
 });
 
 // (Optional) Placeholder route for health checks, keep last
-api.get("/", (_req, res) => {
+api.get("/", (_req: Request, res: Response) => {
   res.send({ status: "API scaffold ready" });
 });
 
