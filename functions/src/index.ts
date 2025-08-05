@@ -1,8 +1,7 @@
 import * as functions from "firebase-functions";
-import * as express from "express";
-import * as cors from "cors";
+import express, { Request, Response } from "express";
+import cors from "cors";
 import * as admin from "firebase-admin";
-import { Request, Response } from "express";
 
 // Initialize firebase-admin once for both local and deployed environments
 if (!admin.apps.length) {
