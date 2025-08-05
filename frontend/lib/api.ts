@@ -27,10 +27,12 @@ export interface Achievement {
   order: number;
 }
 
+type NextRequestInit = RequestInit & { next?: { revalidate: number } };
+
 export async function getProjects(): Promise<Project[]> {
   const res = await fetch(`${BASE_URL}/api/projects`, {
     next: { revalidate: 1800 }
-  });
+  } as NextRequestInit);
   if (!res.ok) throw new Error("Failed to fetch projects");
   return res.json();
 }
@@ -38,7 +40,7 @@ export async function getProjects(): Promise<Project[]> {
 export async function getExperiences(): Promise<Experience[]> {
   const res = await fetch(`${BASE_URL}/api/experiences`, {
     next: { revalidate: 1800 }
-  });
+  } as NextRequestInit);
   if (!res.ok) throw new Error("Failed to fetch experiences");
   return res.json();
 }
@@ -46,7 +48,7 @@ export async function getExperiences(): Promise<Experience[]> {
 export async function getAchievements(): Promise<Achievement[]> {
   const res = await fetch(`${BASE_URL}/api/achievements`, {
     next: { revalidate: 1800 }
-  });
+  } as NextRequestInit);
   if (!res.ok) throw new Error("Failed to fetch achievements");
   return res.json();
 }
