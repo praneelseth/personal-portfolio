@@ -1,3 +1,5 @@
+"use client";
+
 export default function Intro() {
   return (
     <div className="mb-10 flex flex-col sm:flex-row justify-between items-start gap-6">
