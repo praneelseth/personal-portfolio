@@ -24,7 +24,7 @@ export default function Home() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 border border-black px-3 py-0.5 rounded font-semibold text-sm hover:bg-black hover:text-white transition"
+              className="ml-1 border border-black px-2 py-0.5 rounded font-semibold text-sm hover:bg-black hover:text-white transition"
             >
               Resume
             </a>
