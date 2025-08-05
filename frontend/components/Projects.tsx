@@ -35,7 +35,7 @@ export default function Projects() {
         >
           <div className="text-lg font-bold text-black">{proj.title}</div>
           <p className="text-gray-800 mt-1 mb-2">{proj.description}</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 py-2">
             {proj.tech.map((tag, i) => (
               <span
                 key={i}

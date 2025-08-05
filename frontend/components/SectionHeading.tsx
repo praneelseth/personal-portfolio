@@ -9,12 +9,10 @@ interface SectionHeadingProps {
 export default function SectionHeading({ id, title, children }: SectionHeadingProps) {
   return (
     <section id={id} className="mb-6">
-      {title && (
-        <h2 className="scroll-mt-24 text-2xl font-bold mb-6 flex items-center gap-3">
-          {title}
-        </h2>
-      )}
-      {children}
+      <div className="border-b border-gray-300 pb-2 mb-6">
+        {title && <h2 className="text-2xl font-bold">{title}</h2>}
+        {children}
+      </div>
     </section>
   );
 }

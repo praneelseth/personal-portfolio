@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-[90vw] lg:max-w-[48rem] xl:max-w-4xl px-4 py-8">
+    <main className="mx-auto max-w-[90vw] lg:max-w-[40rem] xl:max-w-[56rem] px-4 py-8">
       <SectionHeading id="intro">
         <div className="flex flex-col sm:flex-row sm:items-end gap-3 justify-between">
           <div>
@@ -26,7 +26,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="ml-2 border border-black px-3 py-1 rounded font-semibold text-sm hover:bg-black hover:text-white transition"
             >
-              Résumé
+              Resume
             </a>
           </nav>
         </div>
