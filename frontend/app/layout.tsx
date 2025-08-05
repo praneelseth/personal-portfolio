@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
-import { Poppins } from "next/font/google";
+import { Cantarell } from "next/font/google";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "700"] });
+const cantarell = Cantarell({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
   title: "Personal Portfolio",
