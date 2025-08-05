@@ -14,7 +14,7 @@ export default function Intro() {
       <div className="flex-shrink-0 flex justify-center items-center mt-4 sm:mt-0">
         <img
           src="/me.jpg"
-          alt="Paul Seth"
+          alt="Praneel Seth"
           className="w-24 h-24 rounded-full object-cover ml-0 sm:ml-6 bg-gray-200"
           onError={(e) => {
             // fallback: display a gray circle if image fails to load

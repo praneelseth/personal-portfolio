@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.className}>
       <body className="bg-base font-sans text-black">
         <header className="mx-auto max-w-[90vw] lg:max-w-[48rem] xl:max-w-4xl px-4 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-2xl font-bold tracking-tight text-gray-900">Paul Seth</div>
+          <div className="text-2xl font-bold tracking-tight text-gray-900">Praneel Seth</div>
           <nav className="flex gap-6 items-center">
             <Link href="/" className="text-sm font-medium text-gray-800 hover:text-black transition">Home</Link>
             <Link href="/experience" className="text-sm font-medium text-gray-800 hover:text-black transition">Experience</Link>
