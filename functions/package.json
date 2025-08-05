@@ -15,6 +15,7 @@
   "devDependencies": {
     "typescript": "^5",
     "ts-node": "^10",
-    "@types/express": "^4"
+    "@types/express": "^4",
+    "@types/cors": "^2"
   }
 }
