@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.className}>
       <body className="bg-base font-sans text-black">
         <nav className="fixed top-0 left-0 w-full z-10 bg-base/80 border-b border-gray-200 backdrop-blur-sm">
-          <div className="mx-auto max-w-[90vw] lg:max-w-[33vw] flex justify-between items-center px-4 py-3">
+          <div className="mx-auto max-w-[90vw] lg:max-w-[48rem] xl:max-w-4xl flex justify-between items-center px-4 py-3">
             <div className="flex gap-6">
               <a href="#intro" className="text-sm font-medium text-gray-800 hover:text-black transition">Intro</a>
               <a href="#experience" className="text-sm font-medium text-gray-800 hover:text-black transition">Experience</a>
