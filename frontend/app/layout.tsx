@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={poppins.className}>
+    <html lang="en" className={cantarell.className}>
       <body className="bg-base font-sans text-black">
         {children}
       </body>
