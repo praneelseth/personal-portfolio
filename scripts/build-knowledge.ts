@@ -1,0 +1,1 @@
+// TODO: Implement build-time script to generate knowledge.json from Firestore and GitHub READMEs

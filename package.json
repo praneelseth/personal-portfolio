@@ -1,0 +1,22 @@
+{
+  "name": "portfolio-monorepo",
+  "private": true,
+  "packageManager": "pnpm@8.12.1",
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "functions",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "build": "turbo run build --filter=frontend... --filter=functions...",
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "prettier": "^3",
+    "turbo": "^1",
+    "typescript": "^5"
+  }
+}
