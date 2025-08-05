@@ -26,18 +26,14 @@ export default function Projects() {
   return (
     <div className="mb-10 space-y-4">
       {projects.map(proj => (
-        <div
+        <a
           key={proj.id}
-          className="border border-gray-200 rounded-lg p-4 shadow-sm"
+          href={proj.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block border border-gray-200 rounded-lg p-4 shadow-sm transition transform hover:-translate-y-1 hover:shadow-md"
         >
-          <a
-            href={proj.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-lg font-bold text-blue-700 hover:underline"
-          >
-            {proj.title}
-          </a>
+          <div className="text-lg font-bold text-black">{proj.title}</div>
           <p className="text-gray-800 mt-1 mb-2">{proj.description}</p>
           <div className="flex flex-wrap gap-2">
             {proj.tech.map((tag, i) => (
@@ -49,7 +45,7 @@ export default function Projects() {
               </span>
             ))}
           </div>
-        </div>
+        </a>
       ))}
     </div>
   );
