@@ -1,7 +1,27 @@
-import { getExperiences } from "@/lib/api";
+"use client";
 
-export default async function Experiences() {
-  const experiences = await getExperiences();
+import { useEffect, useState } from "react";
+import { getFirestore, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { firebaseApp } from "@/utils/firebase";
+import type { Experience } from "@/lib/types";
+
+export default function Experiences() {
+  const [experiences, setExperiences] = useState<Experience[] | null>(null);
+
+  useEffect(() => {
+    async function fetchExperiences() {
+      const db = getFirestore(firebaseApp);
+      const q = query(collection(db, "experiences"), orderBy("order", "asc"), limit(3));
+      const snap = await getDocs(q);
+      const data: Experience[] = snap.docs.map(doc => ({ id: doc.id, ...(doc.data() as Omit<Experience, "id">) }));
+      setExperiences(data);
+    }
+    fetchExperiences();
+  }, []);
+
+  if (!experiences) {
+    return <div className="mb-10 text-gray-500">Loading experiences…</div>;
+  }
 
   return (
     <ul className="mb-10 space-y-6">

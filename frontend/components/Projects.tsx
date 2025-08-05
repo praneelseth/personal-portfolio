@@ -1,7 +1,27 @@
-import { getProjects } from "@/lib/api";
+"use client";
 
-export default async function Projects() {
-  const projects = await getProjects();
+import { useEffect, useState } from "react";
+import { getFirestore, collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { firebaseApp } from "@/utils/firebase";
+import type { Project } from "@/lib/types";
+
+export default function Projects() {
+  const [projects, setProjects] = useState<Project[] | null>(null);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      const db = getFirestore(firebaseApp);
+      const q = query(collection(db, "projects"), orderBy("order", "asc"), limit(8));
+      const snap = await getDocs(q);
+      const data: Project[] = snap.docs.map(doc => ({ id: doc.id, ...(doc.data() as Omit<Project, "id">) }));
+      setProjects(data);
+    }
+    fetchProjects();
+  }, []);
+
+  if (!projects) {
+    return <div className="mb-10 text-gray-500">Loading projects…</div>;
+  }
 
   return (
     <div className="mb-10 space-y-4">
