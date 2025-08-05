@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    // All collections are publicly readable
+    match /{document=**} {
+      allow read;
+    }
+    // Write access is managed via server-side API routes (firebase-admin SDK)
+    // firebase-admin bypasses these rules entirely
+  }
+}

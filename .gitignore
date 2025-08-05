@@ -1,0 +1,14 @@
+node_modules
+frontend/node_modules
+frontend/.next
+.DS_Store
+**/.DS_Store
+firestore-debug.log
+.turbo
+frontend/.env.local
+functions/node_modules
+*.tsbuildinfo
+.claude/
+personal-portfolio-6c41a-firebase-adminsdk-fbsvc-9d2d2b02f6.json
+personal-portfolio-6c41a-firebase-adminsdk-fbsvc-6708cac0ff.json
+*firebase-adminsdk*.json

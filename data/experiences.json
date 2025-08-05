@@ -1,0 +1,25 @@
+[
+  {
+    "id": "paycom-intern",
+    "title": "Software Engineering Intern",
+    "company": "Paycom",
+    "dates": "May 2025 - Aug 2025",
+    "bullets": [
+      "Enabled 1000+ sales reps to discover and act on nearby business leads by developing a native iOS app using Swift/MapKit and responsive React web interface, driving a 40% increase in proactive outreach",
+      "Integrated Google Places and CoreLocation APIs to filter businesses, reducing average lead-search time by 60%",
+      "Developed a Node.js/MySQL backend handling 50,000+ API requests per day, ensuring seamless bi-directional sync of saved leads with the internal CRM"
+    ],
+    "order": 1
+  },
+  {
+    "id": "blooming-buds",
+    "title": "Software Engineer",
+    "company": "Blooming Buds Learning Center",
+    "dates": "Jan 2023 - Aug 2024",
+    "bullets": [
+      "Deployed a public-facing React/Node/Firebase website, improving marketing reach 50% and enrollments 20%",
+      "Built internal timecard and attendance tools with Streamlit and Google Cloud to digitize tracking workflows"
+    ],
+    "order": 2
+  }
+]
