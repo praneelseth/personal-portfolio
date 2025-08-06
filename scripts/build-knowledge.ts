@@ -11,10 +11,10 @@ import yaml from "yaml";
 
 const HF_TOKEN = process.env.HF_TOKEN || process.env.NEXT_PUBLIC_HF_TOKEN;
 const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
-const HF_ENDPOINT = `https://api-inference.huggingface.co/models/${encodeURIComponent(HF_MODEL)}`;
+const HF_ENDPOINT = `https://api-inference.huggingface.co/pipeline/feature-extraction/${encodeURIComponent(HF_MODEL)}`;
 
 async function embed(text: string): Promise<number[]> {
-  const res = await fetch(`${HF_ENDPOINT}?task=feature-extraction`, {
+  const res = await fetch(HF_ENDPOINT, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${HF_TOKEN}`,
@@ -34,7 +34,6 @@ async function embed(text: string): Promise<number[]> {
   }
 
   const json = await res.json();
-  // feature-extraction returns nested array [[vector]]
   return Array.isArray(json[0]) ? json[0] : json;
 }
 
