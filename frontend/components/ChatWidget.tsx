@@ -54,7 +54,7 @@ export default function ChatWidget() {
     const contexts = scored.map(s => s.text);
 
     // Step 4: Compose prompt and call Gemini Pro
-    const prompt = `Context:\n${contexts.join("\n")}\n\nUser:${question}`;
+    const prompt = `Context:\n${contexts.join("\n")}\n\nUser: ${question}`;
     let answer = "";
     try {
       const res = await fetch("/api/chat", {
@@ -63,10 +63,12 @@ export default function ChatWidget() {
         body: JSON.stringify({ prompt })
       });
       const json = await res.json();
-      answer = json.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      answer =
+        json.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+        json.error ||
         "I'm sorry, I couldn't generate an answer.";
     } catch (err) {
-      answer = "Sorry, there was an error contacting the AI service.";
+      answer = `Error: ${(err as Error).message}`;
     }
     setMessages(msgs => [...msgs, { role: "ai", text: answer }]);
     setLoading(false);
