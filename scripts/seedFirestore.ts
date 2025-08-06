@@ -13,7 +13,7 @@ async function main() {
   const db = getFirestore();
   const collections = ["projects", "experiences", "achievements"] as const;
   for (const col of collections) {
-    const file = join(__dirname, "../data", `${col}.json`);
+    const file = path.join(__dirname, "../data", `${col}.json`);
     const exists = await fs
       .access(file)
       .then(() => true)
