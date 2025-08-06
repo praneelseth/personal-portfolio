@@ -81,7 +81,7 @@ export default function ChatWidget() {
       <div
         ref={panelRef}
         className={classNames(
-          "fixed z-50 right-6 w-[22rem] max-w-[95vw] bg-white rounded-t-2xl shadow-2xl border border-black flex flex-col transition-transform duration-300",
+          "fixed z-50 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col transition-transform duration-300",
           open ? "bottom-6 translate-y-0" : "bottom-0 translate-y-[calc(100%-3rem)]"
         )}
         style={{ maxHeight: '33vh' }}
