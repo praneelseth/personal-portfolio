@@ -1,0 +1,10 @@
+[
+  {
+    "id": "first-job",
+    "title": "Software Intern",
+    "company": "Sample Company",
+    "dates": "2023",
+    "bullets": ["Worked on cool stuff", "Learned a lot"],
+    "order": 1
+  }
+]

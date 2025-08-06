@@ -11,7 +11,7 @@ export default function SectionHeading({ id, title, children }: SectionHeadingPr
     <section id={id} className="mb-6">
       <div>
         {title && <h2 className="text-2xl font-bold">{title}</h2>}
-        <div className="border-b border-black pt-1 pb-0.5 mb-1">
+        <div className="border-b border-black pt-2 pb-2 mb-1">
           {children}
         </div>
       </div>

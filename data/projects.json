@@ -1,0 +1,10 @@
+[
+  {
+    "id": "my-first-project",
+    "title": "My First Project",
+    "description": "A simple project for demonstration.",
+    "link": "https://github.com/youruser/my-first-project",
+    "tech": ["TypeScript", "React"],
+    "order": 1
+  }
+]

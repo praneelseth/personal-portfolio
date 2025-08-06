@@ -17,6 +17,14 @@
     "eslint": "^8",
     "prettier": "^3",
     "turbo": "^1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "firebase-admin": "^12",
+    "ts-node": "^10",
+    "yaml": "^2",
+    "node-fetch": "^2"
+  },
+  "scripts": {
+    "seed": "ts-node scripts/seedFirestore.ts",
+    "build:knowledge": "ts-node scripts/build-knowledge.ts"
   }
 }
