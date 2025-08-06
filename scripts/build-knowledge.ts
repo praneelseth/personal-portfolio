@@ -14,7 +14,7 @@ const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
 const HF_ENDPOINT = `https://api-inference.huggingface.co/models/${encodeURIComponent(HF_MODEL)}`;
 
 async function embed(text: string): Promise<number[]> {
-  const res = await fetch(HF_ENDPOINT, {
+  const res = await fetch(`${HF_ENDPOINT}?task=feature-extraction`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${HF_TOKEN}`,
@@ -34,6 +34,7 @@ async function embed(text: string): Promise<number[]> {
   }
 
   const json = await res.json();
+  // feature-extraction returns nested array [[vector]]
   return Array.isArray(json[0]) ? json[0] : json;
 }
 
