@@ -6,14 +6,18 @@
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fs from "fs/promises";
-import path from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+// ESM replacement for __dirname
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function main() {
   if (!getApps().length) initializeApp({ credential: cert(process.env.GOOGLE_APPLICATION_CREDENTIALS || "") });
   const db = getFirestore();
   const collections = ["projects", "experiences", "achievements"] as const;
   for (const col of collections) {
-    const file = path.join(__dirname, "../data", `${col}.json`);
+    const file = join(__dirname, "../data", `${col}.json`);
     const exists = await fs
       .access(file)
       .then(() => true)

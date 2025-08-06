@@ -3,11 +3,15 @@
  * Builds frontend/public/knowledge.json with embeddings.
  */
 import fs from "fs/promises";
-import path from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fetch from "node-fetch";
 import yaml from "yaml";
+
+// ESM dirname
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const HF_TOKEN = process.env.HF_TOKEN || process.env.NEXT_PUBLIC_HF_TOKEN;
 const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
@@ -55,7 +59,7 @@ async function main() {
   }
 
   // add about_me.md
-  const aboutPath = path.join(__dirname, "../about_me.md");
+  const aboutPath = join(__dirname, "../about_me.md");
   const aboutText = await fs.readFile(aboutPath, "utf8");
   corpus.push({ id: "about_me", text: aboutText });
 
@@ -73,7 +77,7 @@ async function main() {
       output.push({ id: item.id, text: piece, vector });
     }
   }
-  const outPath = path.join(__dirname, "../frontend/public/knowledge.json");
+  const outPath = join(__dirname, "../frontend/public/knowledge.json");
   await fs.writeFile(outPath, JSON.stringify(output));
   console.log(`Wrote ${output.length} chunks to knowledge.json`);
 }
