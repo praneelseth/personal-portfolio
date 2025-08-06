@@ -55,7 +55,7 @@ async function main() {
   }
 
   // add about_me.md
-  const aboutPath = path.join(__dirname, "../about_me.md");
+  const aboutPath = path.join(process.cwd(), "about_me.md");
   const aboutText = await fs.readFile(aboutPath, "utf8");
   corpus.push({ id: "about_me", text: aboutText });
 
@@ -73,7 +73,7 @@ async function main() {
       output.push({ id: item.id, text: piece, vector });
     }
   }
-  const outPath = path.join(__dirname, "../frontend/public/knowledge.json");
+  const outPath = path.join(process.cwd(), "frontend", "public", "knowledge.json");
   await fs.writeFile(outPath, JSON.stringify(output));
   console.log(`Wrote ${output.length} chunks to knowledge.json`);
 }
