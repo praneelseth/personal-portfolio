@@ -1,13 +1,19 @@
 #!/usr/bin/env ts-node
-/*
- * Uploads sample data from ./data/*.json into Firestore.
- * Requires GOOGLE_APPLICATION_CREDENTIALS or Firebase emulator running.
- */
-import { initializeApp, cert, getApps } from "firebase-admin/app";
+import { initializeApp, applicationDefault, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fs from "fs/promises";
 import path from "path";
 
+async function main() {
+  if (!getApps().length) {
+    const credential = process.env.GOOGLE_APPLICATION_CREDENTIALS
+      ? cert(process.env.GOOGLE_APPLICATION_CREDENTIALS)
+      : applicationDefault();
+    initializeApp({ credential });
+  }
+
+  const db = getFirestore();
+  const collections = ["projects", "experiences", "achievements"] as const;
   const dataDir = path.resolve(process.cwd(), "data");
 
   for (const col of collections) {
@@ -28,4 +34,8 @@ import path from "path";
     console.log(`Seeded ${col}`);
   }
 }
-main();
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
