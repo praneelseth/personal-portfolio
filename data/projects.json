@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "id": "transformer-motion-prediction",
+    "title": "Transformer-Based Motion Prediction for Social Navigation",
+    "description": "Introduced a non-autoregressive transformer to predict human motion, improving trajectory prediction accuracy in long-horizon social navigation scenarios by 15% compared to baseline models. Utilized PyTorch and OpenGL for implementation, training, and visualization of motion trajectory predictions.",
+    "link": "/pdfs/hartlab.pdf",
+    "tech": [
+      "PyTorch",
+      "OpenGL"
+    ],
+    "order": 1
+  },
+  {
+    "id": "imitation-learning-driving",
+    "title": "Imitation Learning For Autonomous Driving Systems",
+    "description": "Implemented a longitudinal control planner for Autonomous Intersection Navigation for a Cadillac Lyriq and trained an expert-based imitation learning model for safe and energy efficient vehicle navigation.",
+    "link": "/pdfs/ecocar.pdf",
+    "tech": [],
+    "order": 2
+  },
+  {
+    "id": "llm-visual-conceptualization",
+    "title": "Large Language Models and Visual Conceptualization",
+    "description": "Co-authored a peer-reviewed CHI conference paper investigating the ability of LLMs to reason about affective visual content, managing data preparation, prompt engineering, analysis, and visualization while authoring the methodology section.",
+    "link": "https://arxiv.org/abs/2503.05109",
+    "tech": [],
+    "order": 3
+  },
+  {
+    "id": "superman-llm-tool",
+    "title": "SuperMAN | LLM Tool for the Command-Line Interface",
+    "description": "Built an award-winning, LLM-driven command line tool for real-time natural language to Bash translation by deploying a fine-tuned Llama 3.2 model on an Intel IPEX-LLM accelerator.",
+    "link": "https://github.com/praneelseth/superMAN",
+    "tech": [
+      "Python",
+      "PyTorch",
+      "Intel IPEX-LLM"
+    ],
+    "order": 4
+  },
+  {
+    "id": "gheithos-scheduler",
+    "title": "GheithOS Thread Scheduler | Neural Network-based Thread Scheduling Algorithm",
+    "description": "Trained a perceptron-based thread scheduler matching CFS policy performance and improving thread selection over traditional models. The model was designed to accept the current runtimes of all active threads as input and output the next thread to run.",
+    "link": "",
+    "tech": [
+      "Python",
+      "PyTorch",
+      "C/C++ 17"
+    ],
+    "order": 5
+  },
+  {
+    "id": "shri-ram-mandir-app",
+    "title": "Shri Ram Mandir Plano | Hindu Temple Mobile Application",
+    "description": "Developed and published a mobile app for both iOS and Android that allows over 1000 users to schedule services at a Hindu temple.",
+    "link": "https://apps.apple.com/us/app/srm-plano/id1557137952",
+    "tech": [
+      "Swift",
+      "Java",
+      "iOS",
+      "Android"
+    ],
+    "order": 6
+  }
+]

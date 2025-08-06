@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "hacktx-llm-award",
+    "title": "Best Use of a Large Language Model",
+    "issuer": "HackTX 2024",
+    "year": 2024,
+    "order": 1
+  },
+  {
+    "id": "hacktx-pitch-award",
+    "title": "Best Pitch",
+    "issuer": "HackTX 2024",
+    "year": 2024,
+    "order": 2
+  },
+  {
+    "id": "hacktx-intel-award",
+    "title": "Third Place for Use of Intel AI",
+    "issuer": "HackTX 2024",
+    "year": 2024,
+    "order": 3
+  },
+  {
+    "id": "ut-pge-hackathon",
+    "title": "2nd Place for Code and Workflow",
+    "issuer": "UT PGE Energy AI Hackathon 2024",
+    "year": 2024,
+    "order": 4
+  }
+]
