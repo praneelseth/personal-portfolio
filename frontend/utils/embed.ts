@@ -10,7 +10,7 @@ export async function embed(text: string): Promise<number[]> {
     throw new Error(json?.error || "Embed request failed");
   }
 
-  if (json.embedding?.values) return json.embedding.values as number[];
-  if (Array.isArray(json[0])) return json[0] as number[];
+  // New API always returns the array directly
+  if (Array.isArray(json)) return json as number[];
   throw new Error("Unexpected embed response format");
 }
