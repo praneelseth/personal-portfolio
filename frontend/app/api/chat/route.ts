@@ -2,6 +2,16 @@ import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+export function GET() {
+  return new Response(
+    JSON.stringify({ ok: true, use: "POST with { prompt }" }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    }
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { prompt } = await req.json();
