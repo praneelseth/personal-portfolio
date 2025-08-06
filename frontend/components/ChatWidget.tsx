@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { embed } from "@/utils/embed";
 import { loadKnowledge, similarity, KnowledgeChunk } from "@/utils/knowledge";
 
@@ -13,6 +13,13 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+  }, [messages, loading]);
 
   async function handleSend(e?: React.FormEvent) {
     if (e) e.preventDefault();
@@ -54,7 +61,7 @@ export default function ChatWidget() {
     const contexts = scored.map(s => s.text);
 
     // Step 4: Compose prompt and call Gemini Pro
-    const prompt = `You are my personal portfolio assistant. Use only the context provided below to answer **briefly (max 3 sentences)** and in first person. If context is irrelevant reply politely you don't know.\n\nContext:\n${contexts.join("\n---\n")}\n\nUser: ${question}`;
+    const prompt = `You are my personal portfolio assistant. Use only the context provided below to answer in first person and **keep it concise (no more than 5 sentences)**, but feel free to get technical when the context comes from a project README. If the context is irrelevant, politely answer that you don't know.\n\nContext:\n${contexts.join("\n---\n")}\n\nUser: ${question}`;
     let answer = "";
     try {
       const res = await fetch("/api/chat", {
@@ -81,13 +88,13 @@ export default function ChatWidget() {
       <div
         ref={panelRef}
         className={classNames(
-          "fixed z-50 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col transition-transform duration-300",
+          "fixed z-50 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col transition-transform duration-300 overflow-hidden",
           open ? "bottom-6 translate-y-0" : "bottom-0 translate-y-[calc(100%-3rem)]"
         )}
         style={{ maxHeight: '33vh' }}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 cursor-pointer" onClick={() => setOpen(!open)}>
-          <div className="font-semibold text-lg text-gray-900">Ask Me Anything</div>
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 cursor-pointer" onClick={() => setOpen(!open)}>
+          <div className="font-semibold text-lg text-gray-900">Ask My Agent</div>
           <button
             className="text-gray-400 hover:text-black transition"
             aria-label="Toggle chat"
@@ -103,7 +110,7 @@ export default function ChatWidget() {
             )}
           </button>
         </div>
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2 bg-gray-50" style={{scrollBehavior:'smooth'}}>
+          <div ref={messagesEndRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-2 bg-gray-50" style={{scrollBehavior:'smooth'}}>
             {messages.length === 0 && (
               <div className="text-gray-500 text-sm">Ask a question about my experience, projects, or achievements!</div>
             )}
