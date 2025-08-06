@@ -54,7 +54,7 @@ export default function ChatWidget() {
     const contexts = scored.map(s => s.text);
 
     // Step 4: Compose prompt and call Gemini Pro
-    const prompt = `Context:\n${contexts.join("\n")}\n\nUser: ${question}`;
+    const prompt = `You are my personal portfolio assistant. Use only the context provided below to answer **briefly (max 3 sentences)** and in first person. If context is irrelevant reply politely you don't know.\n\nContext:\n${contexts.join("\n---\n")}\n\nUser: ${question}`;
     let answer = "";
     try {
       const res = await fetch("/api/chat", {
@@ -95,7 +95,7 @@ export default function ChatWidget() {
       {open && (
         <div
           ref={panelRef}
-          className="fixed z-50 bottom-6 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col"
+          className="fixed z-50 bottom-6 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col max-h-[33vh]"
         >
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
             <div className="font-semibold text-lg text-gray-900">Ask Me Anything</div>
@@ -109,7 +109,7 @@ export default function ChatWidget() {
               </svg>
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2 bg-gray-50">
+          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2 bg-gray-50" style={{scrollBehavior:'smooth'}}>
             {messages.length === 0 && (
               <div className="text-gray-500 text-sm">Ask a question about my experience, projects, or achievements!</div>
             )}
