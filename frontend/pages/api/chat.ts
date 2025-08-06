@@ -6,14 +6,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   const { prompt } = req.body;
   if (!prompt) return res.status(400).json({ error: 'Missing prompt' });
-  const key = process.env.GOOGLE_API_KEY;
-  if (!key) return res.status(500).json({ error: 'Server misconfig: no key' });
-
-  const googleRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${key}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }]})
+  // TEMP: return dummy AI answer for sanity check
+  return res.status(200).json({
+    candidates: [
+      {
+        content: {
+          parts: [
+            {
+              text: `Dummy answer for: "${prompt}"\n(If you see this, the /api/chat route is reachable from ChatWidget).`
+            }
+          ]
+        }
+      }
+    ]
   });
-  const body = await googleRes.json();
-  return res.status(googleRes.status).json(body);
 }
