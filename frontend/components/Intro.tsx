@@ -1,6 +1,13 @@
 "use client";
+import { SyntheticEvent } from "react";
 
 export default function Intro() {
+  // Handler to avoid type errors and DOM manipulation warnings in React
+  function handleImgError(e: SyntheticEvent<HTMLImageElement, Event>) {
+    e.currentTarget.style.display = "none";
+    // Optional: could handle state to swap in a React fallback if desired
+  }
+
   return (
     <div className="mb-10 flex flex-col sm:flex-row justify-between items-start gap-6">
       <div className="flex-1">
@@ -16,19 +23,9 @@ export default function Intro() {
           src="/me.jpg"
           alt="Praneel Seth"
           className="w-24 h-24 rounded-full object-cover ml-0 sm:ml-6 bg-gray-200"
-          onError={(e) => {
-            // fallback: display a gray circle if image fails to load
-            (e.target as HTMLImageElement).style.display = "none";
-            const fallback = document.createElement("div");
-            fallback.style.width = "96px";
-            fallback.style.height = "96px";
-            fallback.style.borderRadius = "50%";
-            fallback.style.background = "#e5e7eb";
-            fallback.style.display = "inline-block";
-            fallback.setAttribute("aria-label", "Profile placeholder");
-            e.target.parentElement?.appendChild(fallback);
-          }}
+          onError={handleImgError}
         />
+        {/* Optionally render a fallback circle here with React state if image fails */}
       </div>
     </div>
   );
