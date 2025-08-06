@@ -21,7 +21,7 @@ export default function Home() {
             <a href="#achievements" className="hover:text-black transition">Achievements</a>
             <a href="#contact" className="hover:text-black transition">Contact</a>
             <a
-              href="/resume.pdf"
+              href="/assets/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 border border-black px-2 py-0.5 rounded font-semibold text-sm hover:bg-black hover:text-white transition"

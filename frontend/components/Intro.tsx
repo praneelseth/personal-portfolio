@@ -14,7 +14,7 @@ export default function Intro() {
       </div>
       <div className="flex-shrink-0 flex justify-center items-center mt-4 sm:mt-0">
         <Image
-          src="/me.jpg"
+          src="/assets/me.jpg"
           alt="Praneel Seth"
           width={96}
           height={96}

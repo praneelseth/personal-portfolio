@@ -4,6 +4,7 @@
  */
 import fs from "fs/promises";
 import path from "path";
+import pdfParse from "pdf-parse";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fetch from "node-fetch";
@@ -107,6 +108,24 @@ async function main() {
         corpus.push({ id: `${proj.id}__readme`, text: readme });
       }
     }
+  }
+
+  // add PDFs from public assets
+  const pdfDir = path.resolve(process.cwd(), "frontend", "public", "assets", "pdfs");
+  try {
+    const entries = await fs.readdir(pdfDir);
+    for (const file of entries) {
+      if (!file.endsWith(".pdf")) continue;
+      const buffer = await fs.readFile(path.join(pdfDir, file));
+      try {
+        const data = await pdfParse(buffer);
+        corpus.push({ id: `pdf__${file}`, text: data.text });
+      } catch (err) {
+        console.warn(`Failed to parse PDF ${file}:`, err);
+      }
+    }
+  } catch (_) {
+    // directory may not exist
   }
 
   const output: any[] = [];
