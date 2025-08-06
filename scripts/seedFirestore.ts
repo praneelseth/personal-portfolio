@@ -8,12 +8,10 @@ import { getFirestore } from "firebase-admin/firestore";
 import fs from "fs/promises";
 import path from "path";
 
-async function main() {
-  if (!getApps().length) initializeApp({ credential: cert(process.env.GOOGLE_APPLICATION_CREDENTIALS || "") });
-  const db = getFirestore();
-  const collections = ["projects", "experiences", "achievements"] as const;
+  const dataDir = path.resolve(process.cwd(), "data");
+
   for (const col of collections) {
-    const file = path.join(__dirname, "../data", `${col}.json`);
+    const file = path.join(dataDir, `${col}.json`);
     const exists = await fs
       .access(file)
       .then(() => true)
@@ -24,7 +22,7 @@ async function main() {
     }
     const docs = JSON.parse(await fs.readFile(file, "utf8"));
     for (const doc of docs) {
-      const id = doc.id || doc.title.replace(/\s+/g, "-").toLowerCase();
+      const id = doc.id || String(doc.title || "doc").replace(/\s+/g, "-").toLowerCase();
       await db.collection(col).doc(id).set(doc, { merge: true });
     }
     console.log(`Seeded ${col}`);
