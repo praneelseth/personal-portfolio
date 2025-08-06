@@ -6,11 +6,7 @@
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fs from "fs/promises";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
-
-// ESM replacement for __dirname
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import path from "path";
 
 async function main() {
   if (!getApps().length) initializeApp({ credential: cert(process.env.GOOGLE_APPLICATION_CREDENTIALS || "") });
