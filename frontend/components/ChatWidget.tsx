@@ -54,28 +54,16 @@ export default function ChatWidget() {
     const contexts = scored.map(s => s.text);
 
     // Step 4: Compose prompt and call Gemini Pro
-    const key = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
     const prompt = `Context:\n${contexts.join("\n")}\n\nUser:${question}`;
     let answer = "";
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${key}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: prompt }]
-              }
-            ]
-          })
-        }
-      );
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
       const json = await res.json();
-      answer =
-        json.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      answer = json.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
         "I'm sorry, I couldn't generate an answer.";
     } catch (err) {
       answer = "Sorry, there was an error contacting the AI service.";
