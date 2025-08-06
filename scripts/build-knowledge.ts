@@ -13,16 +13,24 @@ const HF_TOKEN = process.env.HF_TOKEN || process.env.NEXT_PUBLIC_HF_TOKEN;
 const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
 
 async function embed(text: string): Promise<number[]> {
-  const res = await fetch(`https://api-inference.huggingface.co/pipeline/feature-extraction/${HF_MODEL}`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${HF_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(text),
-  });
-  if (!res.ok) throw new Error(await res.text());
+  const res = await fetch(
+    `https://api-inference.huggingface.co/pipeline/feature-extraction/${HF_MODEL}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${HF_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ inputs: text }),
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`HF ${res.status}: ${await res.text()}`);
+  }
+
   const json = await res.json();
+  // HF returns [[vector]]
   return Array.isArray(json[0]) ? json[0] : json;
 }
 
