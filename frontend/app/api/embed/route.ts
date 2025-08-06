@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    const body = await googleRes.text();
-    return new Response(body, {
+    const body = await googleRes.json();
+    return new Response(JSON.stringify(body), {
       status: googleRes.status,
       headers: { "Content-Type": "application/json" }
     });
