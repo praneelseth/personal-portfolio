@@ -1,63 +1,89 @@
 #!/usr/bin/env ts-node
 /*
- * Builds frontend/public/knowledge.json with embeddings.
+ * Builds frontend/public/knowledge.json with embeddings using Google AI.
  */
 import fs from "fs/promises";
 import path from "path";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import fetch from "node-fetch";
-import yaml from "yaml";
 
-const HF_TOKEN = process.env.HF_TOKEN || process.env.NEXT_PUBLIC_HF_TOKEN;
-const HF_MODEL = "sentence-transformers/all-MiniLM-L6-v2";
-const HF_ENDPOINT = `https://api-inference.huggingface.co/pipeline/feature-extraction/${HF_MODEL}`;
+// --- Google AI Configuration ---
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+const GOOGLE_EMBEDDING_MODEL = "text-embedding-004";
+const GOOGLE_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GOOGLE_EMBEDDING_MODEL}:embedContent?key=${GOOGLE_API_KEY}`;
+// --- End of Google AI Configuration ---
 
+/**
+ * Creates a vector embedding for a given text using the Google AI API.
+ * @param text The string to embed.
+ * @returns A promise that resolves to an array of numbers (the vector).
+ */
 async function embed(text: string): Promise<number[]> {
-  const res = await fetch(HF_ENDPOINT, {
+  const res = await fetch(GOOGLE_ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${HF_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ inputs: text }),
+    body: JSON.stringify({
+      model: `models/${GOOGLE_EMBEDDING_MODEL}`,
+      content: {
+        parts: [{ text }],
+      },
+    }),
   });
 
-  if (res.status === 202) {
-    console.log("Model loading at HF… waiting 15s");
-    await new Promise((r) => setTimeout(r, 15000));
-    return embed(text);
-  }
-
   if (!res.ok) {
-    throw new Error(`HF ${res.status}: ${await res.text()}`);
+    const error = await res.json();
+    throw new Error(`Google AI API Error: ${res.status} ${JSON.stringify(error)}`);
   }
 
   const json = await res.json();
-  return Array.isArray(json[0]) ? json[0] : json;
+  return json.embedding.values;
 }
 
 function chunk(text: string, size = 300): string[] {
-  const chunks = [] as string[];
-  for (let i = 0; i < text.length; i += size) chunks.push(text.slice(i, i + size));
+  const chunks: string[] = [];
+  for (let i = 0; i < text.length; i += size) {
+    chunks.push(text.slice(i, i + size));
+  }
   return chunks;
 }
 
 async function readProjectReadme(link: string): Promise<string | undefined> {
   if (!link.includes("github.com")) return;
-  const [_, user, repo] = link.split("https://github.com/")[1].split("/");
-  const url = `https://raw.githubusercontent.com/${user}/${repo}/main/README.md`;
+  const match = link.match(/github\.com\/([^/]+\/[^/]+)/);
+  if (!match) return;
+
+  const repo = match[1].replace(/\.git$/, "");
+  const url = `https://raw.githubusercontent.com/${repo}/main/README.md`;
+
+  console.log(`Fetching README from: ${url}`);
   const res = await fetch(url);
-  if (!res.ok) return;
+  if (!res.ok) {
+    console.warn(`Failed to fetch README for ${link} (Status: ${res.status})`);
+    return undefined;
+  }
   return await res.text();
 }
 
 async function main() {
-  if (!HF_TOKEN) throw new Error("HF_TOKEN env var required");
-  if (!getApps().length) initializeApp({ credential: cert(process.env.GOOGLE_APPLICATION_CREDENTIALS || "") });
+  if (!GOOGLE_API_KEY) {
+    throw new Error("GOOGLE_API_KEY environment variable is required");
+  }
+
+  if (!getApps().length) {
+    const creds = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+    if (!creds) {
+        throw new Error("GOOGLE_APPLICATION_CREDENTIALS environment variable is required for Firestore");
+    }
+    initializeApp({ credential: cert(creds) });
+  }
+
   const db = getFirestore();
   const collections = ["projects", "experiences", "achievements"] as const;
-  let corpus: { id: string; text: string }[] = [];
+  const corpus: { id: string; text: string }[] = [];
+
   for (const col of collections) {
     const snap = await db.collection(col).get();
     snap.forEach((doc) => {
@@ -65,27 +91,44 @@ async function main() {
     });
   }
 
-  // add about_me.md
   const aboutPath = path.resolve(process.cwd(), "about_me.md");
-  const aboutText = await fs.readFile(aboutPath, "utf8");
-  corpus.push({ id: "about_me", text: aboutText });
+  try {
+    const aboutText = await fs.readFile(aboutPath, "utf8");
+    corpus.push({ id: "about_me", text: aboutText });
+  } catch (error) {
+    console.warn(`Could not read about_me.md, skipping. Error: ${error}`);
+  }
 
-  // add READMEs
   for (const proj of corpus.filter((c) => c.id.startsWith("projects__"))) {
     const data = JSON.parse(proj.text);
-    const readme = await readProjectReadme(data.link);
-    if (readme) corpus.push({ id: `${proj.id}__readme`, text: readme });
+    if (data.link) {
+      const readme = await readProjectReadme(data.link);
+      if (readme) {
+        corpus.push({ id: `${proj.id}__readme`, text: readme });
+      }
+    }
   }
 
   const output: any[] = [];
   for (const item of corpus) {
-    for (const piece of chunk(item.text)) {
+    const itemChunks = chunk(item.text);
+    for (let i = 0; i < itemChunks.length; i++) {
+      const piece = itemChunks[i];
+      // Add a small delay to be kind to the API, though Google's limits are high
+      await new Promise(resolve => setTimeout(resolve, 50));
+      console.log(`Embedding chunk ${i + 1}/${itemChunks.length} for: ${item.id}`);
       const vector = await embed(piece);
       output.push({ id: item.id, text: piece, vector });
     }
   }
+  
   const outPath = path.resolve(process.cwd(), "frontend", "public", "knowledge.json");
-  await fs.writeFile(outPath, JSON.stringify(output));
-  console.log(`Wrote ${output.length} chunks to knowledge.json`);
+  await fs.writeFile(outPath, JSON.stringify(output, null, 2));
+  console.log(`\n✅ Wrote ${output.length} chunks to knowledge.json`);
 }
-main();
+
+main().catch(error => {
+  console.error("\n❌ An error occurred during script execution:");
+  console.error(error);
+  process.exit(1);
+});
