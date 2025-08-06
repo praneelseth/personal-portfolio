@@ -122,7 +122,9 @@ async function main() {
     }
   }
   
-  const outPath = path.resolve(process.cwd(), "frontend", "public", "knowledge.json");
+  const outDir = path.resolve(process.cwd(), "frontend", "public");
+  await fs.mkdir(outDir, { recursive: true });
+  const outPath = path.join(outDir, "knowledge.json");
   await fs.writeFile(outPath, JSON.stringify(output, null, 2));
   console.log(`\n✅ Wrote ${output.length} chunks to knowledge.json`);
 }
