@@ -9,9 +9,11 @@ interface SectionHeadingProps {
 export default function SectionHeading({ id, title, children }: SectionHeadingProps) {
   return (
     <section id={id} className="mb-6">
-      <div className="border-b border-black pt-4 pb-1 mb-1">
+      <div>
         {title && <h2 className="text-2xl font-bold">{title}</h2>}
-        {children}
+        <div className="border-b border-black pt-4 pb-1 mb-1">
+          {children}
+        </div>
       </div>
     </section>
   );
