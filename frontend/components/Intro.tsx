@@ -26,7 +26,6 @@ export default function Intro() {
   );
 }
         />
-        {/* Optionally render a fallback circle here with React state if image fails */}
       </div>
     </div>
   );
