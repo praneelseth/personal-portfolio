@@ -30,6 +30,8 @@ export default function Home() {
             </a>
           </nav>
         </div>
+        {/* Add a consistent border line under nav with same pt-2 */}
+        <div className="border-b border-black pt-2 pb-1 mb-1" />
       </SectionHeading>
       <Intro />
       <SectionHeading id="experience" title="Experience" />
