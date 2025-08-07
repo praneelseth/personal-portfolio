@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-[90vw] lg:max-w-[40rem] xl:max-w-[56rem] px-4 py-8">
       <SectionHeading id="intro">
-        <div className="flex flex-col sm:flex-row sm:items-end gap-3 justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-end gap-3 justify-between mb-1">
           <div>
-            <span className="text-2xl font-bold tracking-tight text-gray-900">Praneel Seth</span>
+            <span className="text-2xl font-bold">Praneel Seth</span>
           </div>
           <nav className="flex flex-wrap gap-4 items-center text-sm font-medium text-gray-800">
             <a href="#experience" className="hover:text-black transition">Experience</a>
@@ -22,7 +22,7 @@ export default function Home() {
               href="/assets/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-1 border border-black px-2 py-0.5 rounded font-semibold text-sm hover:bg-black hover:text-white transition"
+              className="hover:text-black transition"
             >
               Resume
             </a>
