@@ -16,7 +16,7 @@ export default function Intro() {
       </div>
       <div className="flex-1">
         <p className="text-lg mb-2 font-medium">
-          Hi there! I&apos;m Praneel, a computer science student at UT Austin. I'm passionate about machine learning and software engineering.
+          Hi there! I'm Praneel, a computer science student at UT Austin. I'm passionate about machine learning and software engineering.
         </p>
         <p className="text-md text-gray-700">
           I enjoy building projects involving artifical intelligence and learning new things. Welcome to my portfolio!
