@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import React from 'react';
 import { Cantarell } from "next/font/google";
 
 const cantarell = Cantarell({ subsets: ["latin"], weight: ["400", "700"] });

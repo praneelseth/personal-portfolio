@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { useState, useRef, useEffect } from "react";
 import { embed } from "@/utils/embed";
 import { loadKnowledge, similarity, KnowledgeChunk } from "@/utils/knowledge";
