@@ -3,7 +3,7 @@
     "id": "transformer-motion-prediction",
     "title": "Transformer-Based Motion Prediction for Social Navigation",
     "description": "Introduced a non-autoregressive transformer to predict human motion, improving trajectory prediction accuracy in long-horizon social navigation scenarios by 15% compared to baseline models. Utilized PyTorch and OpenGL for implementation, training, and visualization of motion trajectory predictions.",
-    "link": "/pdfs/hartlab.pdf",
+    "link": "/assets/pdfs/hartlab.pdf",
     "tech": [
       "PyTorch",
       "OpenGL"
@@ -14,8 +14,12 @@
     "id": "imitation-learning-driving",
     "title": "Imitation Learning For Autonomous Driving Systems",
     "description": "Implemented a longitudinal control planner for Autonomous Intersection Navigation for a Cadillac Lyriq and trained an expert-based imitation learning model for safe and energy efficient vehicle navigation.",
-    "link": "/pdfs/ecocar.pdf",
-    "tech": [],
+    "link": "/assets/pdfs/ecocar.pdf",
+    "tech": [
+        "ModelDesk",
+        "MATLAB",
+        "Simulink"
+    ],
     "order": 2
   },
   {
