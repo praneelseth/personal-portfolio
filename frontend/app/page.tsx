@@ -14,7 +14,6 @@ export default function Home() {
             <span className="text-2xl font-bold tracking-tight text-gray-900">Praneel Seth</span>
           </div>
           <nav className="flex flex-wrap gap-4 items-center text-sm font-medium text-gray-800">
-            <a href="#intro" className="hover:text-black transition">Home</a>
             <a href="#experience" className="hover:text-black transition">Experience</a>
             <a href="#projects" className="hover:text-black transition">Projects</a>
             <a href="#achievements" className="hover:text-black transition">Achievements</a>
