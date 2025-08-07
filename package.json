@@ -13,12 +13,14 @@
     "seed": "ts-node scripts/seedFirestore.ts",
     "build:knowledge": "ts-node scripts/build-knowledge.ts"
   },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  },
   "devDependencies": {
     "@types/node-fetch": "2",
     "eslint": "^8",
     "firebase-admin": "^12",
     "node-fetch": "^2",
-    "pdf-parse": "^1.1.1",
     "prettier": "^3",
     "ts-node": "^10",
     "turbo": "^1",
