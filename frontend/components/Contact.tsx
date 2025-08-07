@@ -1,15 +1,13 @@
 export default function Contact() {
   return (
     <div className="mb-4 space-y-3">
-      <div>
+      <div className="flex gap-4 items-center">
         <a
-          href="mailto:your.email@utexas.edu"
+          href="mailto:praneelseth@gmail.com"
           className="text-blue-700 underline font-medium"
         >
-          your.email@utexas.edu
+          praneelseth@gmail.com
         </a>
-      </div>
-      <div className="flex gap-4 items-center">
         <a href="#" aria-label="LinkedIn" className="text-gray-700 hover:text-blue-700">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" className="inline-block align-middle"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.966 0-1.75-.79-1.75-1.76 0-.97.784-1.76 1.75-1.76s1.75.79 1.75 1.76c0 .97-.784 1.76-1.75 1.76zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.36-1.54 2.8-1.54 3 0 3.56 1.98 3.56 4.56v4.75z"/></svg>
         </a>
@@ -19,9 +17,6 @@ export default function Contact() {
         <a href="#" aria-label="Twitter" className="text-gray-700 hover:text-blue-500">
           <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" className="inline-block align-middle"><path d="M24 4.557a9.93 9.93 0 01-2.828.775 4.932 4.932 0 002.165-2.724c-.951.555-2.005.959-3.127 1.184C18.691 2.875 17.437 2 16 2c-2.733 0-4.948 2.215-4.948 4.947 0 .388.045.765.127 1.124C7.691 7.855 4.066 5.884 1.64 2.924c-.427.735-.666 1.587-.666 2.496 0 1.722.877 3.238 2.212 4.126a4.904 4.904 0 01-2.24-.618v.062c0 2.404 1.713 4.413 3.977 4.868-.417.112-.855.172-1.308.172-.32 0-.635-.03-.942-.086.636 1.984 2.479 3.423 4.66 3.462-1.708 1.34-3.863 2.138-6.206 2.138-.404 0-.803-.024-1.195-.07 2.212 1.42 4.835 2.25 7.653 2.25 9.19 0 14.221-7.615 14.221-14.221 0-.217-.004-.432-.014-.646A10.175 10.175 0 0024 4.557z"/></svg>
         </a>
-      </div>
-      <div className="text-xs mt-3 text-gray-500">
-        (Chat widget coming soon!)
       </div>
     </div>
   );
