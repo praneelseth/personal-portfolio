@@ -91,7 +91,7 @@ export default function ChatWidget() {
           "fixed z-50 right-6 w-[22rem] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-black flex flex-col transition-transform duration-300 overflow-hidden",
           open ? "bottom-6 translate-y-0" : "bottom-0 translate-y-[calc(100%-3rem)]"
         )}
-        style={{ maxHeight: '33vh' }}
+        style={{ maxHeight: '50vh' }}
       >
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 cursor-pointer" onClick={() => setOpen(!open)}>
           <div className="font-semibold text-lg text-gray-900">Ask My Agent</div>
