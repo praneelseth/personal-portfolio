@@ -22,7 +22,6 @@
     "eslint-config-next": "^14.2.31",
     "firebase-admin": "^12",
     "node-fetch": "^2",
-    "pdf-parse": "^1.1.1",
     "prettier": "^3",
     "ts-node": "^10",
     "turbo": "^1",
