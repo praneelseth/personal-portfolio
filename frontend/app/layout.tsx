@@ -5,8 +5,11 @@ import { Cantarell } from "next/font/google";
 const cantarell = Cantarell({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
-  title: "Personal Portfolio",
-  description: "My résumé and projects"
+  title: "Praneel Seth",
+  description: "My résumé and projects",
+  icons: {
+    icon: "/assets/icon.jpg"
+  }
 };
 
 import ChatWidget from "@/components/ChatWidget";
