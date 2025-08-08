@@ -8,7 +8,7 @@ export default function Education() {
           <div className="text-lg font-bold text-gray-900">
             University of Texas at Austin
           </div>
-          <div className="text-gray-700 text-sm">
+          <div className="text-gray-700">
             Aug 2023 - May 2027
           </div>
         </div>
