@@ -4,6 +4,7 @@ import Experiences from "@/components/Experiences";
 import Projects from "@/components/Projects";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
+import Education from "@/components/Education";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
             <span className="text-2xl font-bold">Praneel Seth</span>
           </div>
           <nav className="flex flex-wrap gap-4 items-center text-sm font-medium text-gray-800">
+            <a href="#education" className="hover:text-black transition">Education</a>
             <a href="#experience" className="hover:text-black transition">Experience</a>
             <a href="#projects" className="hover:text-black transition">Projects</a>
             <a href="#achievements" className="hover:text-black transition">Achievements</a>
@@ -30,6 +32,8 @@ export default function Home() {
         </div>
       </SectionHeading>
       <Intro />
+      <SectionHeading id="education" title="Education" />
+      <Education />
       <SectionHeading id="experience" title="Experience" />
       <Experiences />
       <SectionHeading id="projects" title="Projects" />
