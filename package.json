@@ -3,20 +3,29 @@
   "private": true,
   "packageManager": "pnpm@8.12.1",
   "version": "0.1.0",
+  "type": "module",
   "workspaces": [
     "frontend",
     "functions",
     "scripts"
   ],
   "scripts": {
-    "dev": "pnpm --filter frontend dev",
-    "build": "turbo run build --filter=frontend... --filter=functions...",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "seed": "ts-node scripts/seedFirestore.ts",
+    "build:knowledge": "ts-node scripts/build-knowledge.ts"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
+    "@types/node-fetch": "2",
     "eslint": "^8",
+    "eslint-config-next": "^14.2.31",
+    "firebase-admin": "^12",
+    "node-fetch": "^2",
     "prettier": "^3",
+    "ts-node": "^10",
     "turbo": "^1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "yaml": "^2"
   }
 }

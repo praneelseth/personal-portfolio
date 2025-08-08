@@ -4,12 +4,36 @@ import Experiences from "@/components/Experiences";
 import Projects from "@/components/Projects";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
+import Education from "@/components/Education";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-[90vw] lg:max-w-[33vw] px-4 py-8">
-      <SectionHeading id="intro" title="Welcome" />
+    <main className="mx-auto max-w-[90vw] lg:max-w-[40rem] xl:max-w-[56rem] px-4 py-8">
+      <SectionHeading id="intro">
+        <div className="flex flex-col sm:flex-row sm:items-end gap-3 justify-between mb-1">
+          <div>
+            <span className="text-2xl font-bold">Praneel Seth</span>
+          </div>
+          <nav className="flex flex-wrap gap-4 items-center text-sm font-medium text-gray-800">
+            <a href="#education" className="hover:text-black transition">Education</a>
+            <a href="#experience" className="hover:text-black transition">Experience</a>
+            <a href="#projects" className="hover:text-black transition">Projects</a>
+            <a href="#achievements" className="hover:text-black transition">Achievements</a>
+            <a href="#contact" className="hover:text-black transition">Contact</a>
+            <a
+              href="/assets/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black transition"
+            >
+              Resume
+            </a>
+          </nav>
+        </div>
+      </SectionHeading>
       <Intro />
+      <SectionHeading id="education" title="Education" />
+      <Education />
       <SectionHeading id="experience" title="Experience" />
       <Experiences />
       <SectionHeading id="projects" title="Projects" />

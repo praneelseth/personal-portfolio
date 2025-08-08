@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "your-firebase-project-id",
+    "staging": "personal-portfolio-6c41a"
+  },
+  "targets": {},
+  "etags": {}
+}
