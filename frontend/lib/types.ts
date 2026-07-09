@@ -27,7 +27,7 @@ export interface Achievement {
 export type ContentBlock =
   | { type: "paragraph"; text: string }
   | { type: "heading"; level: 1 | 2 | 3; text: string }
-  | { type: "image"; url: string; alt?: string; caption?: string }
+  | { type: "image"; url: string; alt?: string; caption?: string; width?: string; height?: string; align?: "center" | "left" | "right" }
   | { type: "video"; url: string; caption?: string }
   | { type: "link"; url: string; label: string }
   | { type: "code"; language?: string; value: string }

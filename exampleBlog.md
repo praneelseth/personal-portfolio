@@ -69,6 +69,14 @@ Links must be on their own line in the format [label](url).
 
 Images use the format ![alt text](url) on their own line.
 
+You can also add sizing and centering options:
+
+![a centered image](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Culinary_fruits_front_view.jpg/640px-Culinary_fruits_front_view.jpg | width=60% | align=center)
+
+![a fixed-width image](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Culinary_fruits_front_view.jpg/640px-Culinary_fruits_front_view.jpg | width=400px)
+
+Supported options are `width=...`, `height=...`, and `align=center`.
+
 ---
 
 ## Inline LaTeX

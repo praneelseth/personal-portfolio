@@ -63,16 +63,30 @@ function Block({ block }: { block: ContentBlock }) {
       return <div className="mb-4 overflow-x-auto" dangerouslySetInnerHTML={{ __html: html }} />;
     }
 
-    case "image":
+    case "image": {
+      const imageStyle: React.CSSProperties = {
+        width: block.width,
+        height: block.height,
+        maxWidth: "100%",
+        display: "block",
+        margin: block.align === "center" ? "0 auto" : undefined,
+      };
+
       return (
         <figure className="mb-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={block.url} alt={block.alt ?? ""} className="w-full" />
+          <img
+            src={block.url}
+            alt={block.alt ?? ""}
+            className="w-full h-auto max-w-full"
+            style={imageStyle}
+          />
           {block.caption && (
             <figcaption className="text-xs text-gray-500 mt-1">{block.caption}</figcaption>
           )}
         </figure>
       );
+    }
 
     case "video": {
       const ytId = getYouTubeId(block.url);

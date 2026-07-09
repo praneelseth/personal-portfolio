@@ -1,5 +1,63 @@
 import type { ContentBlock } from "./types";
 
+function formatImageMarkdown(block: Extract<ContentBlock, { type: "image" }>): string {
+  const options: string[] = [];
+  if (block.width) options.push(`width=${block.width}`);
+  if (block.height) options.push(`height=${block.height}`);
+  if (block.align) options.push(`align=${block.align}`);
+
+  const suffix = options.length > 0 ? ` | ${options.join(" | ")}` : "";
+  return `![${block.alt ?? ""}](${block.url}${suffix})`;
+}
+
+function parseImageMetadata(raw: string) {
+  const parts = raw.split("|").map(part => part.trim()).filter(Boolean);
+  const url = parts[0] ?? "";
+  let width: string | undefined;
+  let height: string | undefined;
+  let align: "center" | "left" | "right" | undefined;
+
+  for (const part of parts.slice(1)) {
+    const widthMatch = part.match(/^width\s*=\s*(.+)$/i);
+    if (widthMatch) {
+      width = widthMatch[1].trim();
+      continue;
+    }
+
+    const heightMatch = part.match(/^height\s*=\s*(.+)$/i);
+    if (heightMatch) {
+      height = heightMatch[1].trim();
+      continue;
+    }
+
+    const alignMatch = part.match(/^align\s*=\s*(center|left|right)$/i);
+    if (alignMatch) {
+      align = alignMatch[1].toLowerCase() as "center" | "left" | "right";
+      continue;
+    }
+
+    const centeredMatch = part.match(/^(center|centre|centered)$/i);
+    if (centeredMatch) {
+      align = "center";
+      continue;
+    }
+
+    const sizeMatch = part.match(/^(\d+(?:\.\d+)?)(px|%)?$/i);
+    if (sizeMatch) {
+      width = `${sizeMatch[1]}${sizeMatch[2] ?? "px"}`;
+      continue;
+    }
+
+    const dimsMatch = part.match(/^(\d+(?:\.\d+)?)(px|%)?x(\d+(?:\.\d+)?)(px|%)?$/i);
+    if (dimsMatch) {
+      width = `${dimsMatch[1]}${dimsMatch[2] ?? "px"}`;
+      height = `${dimsMatch[3]}${dimsMatch[4] ?? "px"}`;
+    }
+  }
+
+  return { url, width, height, align };
+}
+
 export function blocksToMarkdown(blocks: ContentBlock[]): string {
   return blocks
     .map(block => {
@@ -11,7 +69,7 @@ export function blocksToMarkdown(blocks: ContentBlock[]): string {
         case "list":      return block.items.map(item => "* " + item).join("\n");
         case "divider":   return "---";
         case "link":      return `[${block.label}](${block.url})`;
-        case "image":     return `![${block.alt ?? ""}](${block.url})`;
+        case "image":     return formatImageMarkdown(block);
         case "video":     return block.url;
         default:          return "";
       }
@@ -82,11 +140,12 @@ export function markdownToBlocks(md: string): ContentBlock[] {
       continue;
     }
 
-    // Image: ![alt](url)
+    // Image: ![alt](url) or ![alt](url | width=60% | align=center)
     const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (imageMatch) {
       flushParagraph();
-      blocks.push({ type: "image", alt: imageMatch[1] || undefined, url: imageMatch[2] });
+      const { url, width, height, align } = parseImageMetadata(imageMatch[2].trim());
+      blocks.push({ type: "image", alt: imageMatch[1] || undefined, url, width, height, align });
       i++;
       continue;
     }
